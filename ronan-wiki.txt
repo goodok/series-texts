@@ -11,7 +11,7 @@ In this section we attract attention to the structure of finite or infinite seri
 The term *formal* which is used below for series usually means that "Historically, mathematicians such as Leonhard Euler operated liberally with infinite series, even if they were not
 convergent. When calculus was put on a sound and correct foundation in the nineteenth century, rigorous proofs of
 the convergence of series were always required. However, the formal operation with non-convergent series has been
-retained in rings of formal power series which are studied in abstract algebra." In other words, operations with formal series depend only upon the coefficients, the basis, not upon $X$ itself, so \(X\( is a formal parameter. (They can be depend of \(X\) nature: complex, real and so on.)
+retained in rings of formal power series which are studied in abstract algebra." In other words, operations with formal series depend only upon the coefficients, the basis, not upon \(X\) itself, so \(X\) is a formal parameter. ( They can be depend of \(X\) nature: complex, real and so on.)
 
 A **Series** is the sum of the terms of a sequence. Finite sequences and series have defined first and last terms,
 whereas infinite sequences and series continue indefinitely. The terms of the series are often produced according to a certain rule, such as by a formula, or by an algorithm. Remark about context:
@@ -90,3 +90,12 @@ Also the implementation of some series methods for solving IDEs is processing no
 ).
 
 Also there are an object Sum is defined, which represent unevaluated summation \( \sum_{k=a}^b a(n) \).
+
+## problems and remarks which we encounter
+- representation of Derivative of function at some (no zero) point.
+- Not effective algorithm in some cases: now is used that: (cos(x)*(sin(x)).series() = sin(x).series() * cos(x).series(), lseries.next() calculate the nseries(n)  every time  (f.e. fifth next() calculate nseries(5) and after this yield fifth term)
+
+# Open questions and future topics
+- multivariable extension
+- complex number
+- convergence
