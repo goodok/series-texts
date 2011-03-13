@@ -23,9 +23,22 @@ A classical **Laurent series** is an object of the form \(\sum_{n=+\infty}^{+\in
 
 A **generalized formal power series**, or **formal Laurent series**, in an object \(S\) such that \(X^n S\) is a formal power series for some integer \(n\). The set of formal Laurent series over a field \(K\) is noted \(K((X))\) and has a field structure.
 
+A **Laurent polynomial**  in one variable over a field \(F\) is a linear combination of positive and negative powers of the variable with coefficients in \(F\). Laurent polynomials in \(X\) form a ring denoted \(F [X, X−1] \). They differ from ordinary polynomials in that they may have terms of negative degree. A Laurent polynomial over C may be viewed as a Laurent series in which only finitely many coefficients are non-zero.
+
 The **Taylor series** at \(x_0\) of a smooth function \(f\) is the formal power series \(TS_{x_0}(f) = \sum_{n = 0}^\infty \frac{f^{(n)}(x_0)}{n!} X^n\).  where \(X = x-x_0\) \(f\) is analytic iff there exists a neighbourhood \(V\) of \(x_0\) where \(f(x) = S(x-x_0), x \in V, S = TS_{x_0}(f)\).
 
 The n-th order **Taylor polynomial** of f at \(x_0\) is the degree-n polynomial \(TP_{n, x_0}(f) = \sum_{n = 0}^n \frac{f^{(k)}(x_0)}{k!} X^k\). If f is analytic, \(TP_{n, x_0}(f)\) is the degree-n truncation of \(TS_{x_0}(f)\).
+
+### Unclassified series
+
+\( \sqrt{\sin(x)} =  x^{\frac{1}{2}} - \frac{x^{\frac{5}{2}}}{12} + \frac{x^{\frac{9}{2}}}{1440} + \cdots \)
+
+\( x^x = 1 + x \log x + \frac{x^2 \log^2(x)}{2} + \cdots \)
+
+This series do not expand to Taylor series because of they are not analytical (some derivatives are oo)
+
+Also combination of that function with each other or with polynomials brings to mix of various kinds of series (that may be out of sense).
+
 
 ## Asymptotic expansion
 
@@ -54,6 +67,18 @@ merely traditional, and they are sometimes more correctly called generating seri
 The **ordinary generating function** of a sequence \(a_n\) is \( G(a_n;x) = \sum_{n=0}^{+\infty} a_n x^n\).
 
 The **exponential generating function** of a sequence \(a_n\) is \( EG(a_n;x) = \sum_{n=0}^{+\infty} a_n \frac{x^n}{n!}\).
+
+## Analytic function
+
+In mathematics, an analytic function is a function that is locally given by a convergent power series. (There exist both real analytic functions and complex analytic functions.)
+Alternatively, an analytic function is an infinitely differentiable function such that the Taylor series at any point x0 in its domain 
+converges to ƒ(x) for x in a neighborhood of x0. 
+
+Properties
+- The sums, products, and compositions of analytic functions are analytic.
+- The reciprocal of an analytic function that is nowhere zero is analytic, as is the inverse of an invertible analytic function whose derivative is nowhere zero.
+- Any analytic function is smooth, that is, infinitely differentiable. The converse is not true; in fact, in a certain sense, the analytic functions are sparse compared to all infinitely differentiable functions.
+
 
 # Usage and applications
 
@@ -86,22 +111,27 @@ Actually, it works only for \(x_0 = 0\) and when f doesn't have a generalized Ta
 - But the present method "series" which returns various kinds of series is convenient and used for the task of limits processing: limits use necessary amount of first terms of series whatever it be.
 The work with processing of many various cases of series and limits was executed recently, also many tests have been collected and passed for series and limits.
 
+- Class *Function* , *exp* *sin* and others contain method **taylor_term**.
+
+- general algorithm for series() and nseries() consist in that the operations with asymptotic expansion  used through recursion:  F.e: ((sin(x))^1000 ).series() = \( (1 + \frac{x^3}{6} + O(x^4))^1000 = \cdots \).
+
+- There is an object **Sum** defined in sympy, which represent unevaluated summation \( \sum_{k=a}^b a(n) \).
+
+- sympy/solvers/recurr.py contains some methods for solving recurrences, main function on this module is **rsolve()**.
+
 - The implementation of some series methods for solving IDEs is processing now in Saptarshi's branch (https://github.com/saptman/sympy/tree/dev_ide
 ).
 
-- Class *Function* , *exp* *sin* and others contain method *taylor_term*.
-
-- There is an object *Sum* defined in sympy, which represent unevaluated summation \( \sum_{k=a}^b a(n) \).
-
-- sympy/solvers/recurr.py contains some methods for solving recurrences, main function on this module is rsolve().
 
 ## problems and remarks which we encounter
+
 - Problems with big O representation and behaviour at non zero point or oo.
-- representation of Derivative of function at some (no zero) point.
+- representation of Derivative of function at some (no zero) point (issue 1620).
+- representation of composition of functions while differentiation (issue 1660).
 - Not effective algorithm in some cases: now is used that: (cos(x)*(sin(x)).series() = sin(x).series() * cos(x).series(), lseries.next() calculate the nseries(n)  every time  (f.e. fifth next() calculate nseries(5) and after this yield fifth term)
 
 # Open questions and future topics
-- what is exp(1/).series(x, oo) - classical Laurent or power series at point oo?
+- what is exp(1/x).series(x, oo) - classical Laurent or power series at point oo?
 - multivariable extension.
 - complex numbers, non commutative formal variables.
 - convergence
