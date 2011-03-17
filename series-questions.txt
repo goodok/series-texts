@@ -1,0 +1,6 @@
+Questions
+
+1. Is internal distiguish between PowerSeries (PowerExpansion) and TaylorSeries (TaylorExpantion) needs?
+2. What does sin(x).series(kind="taylor") == sin(x).series(kind="power")?
+
+3. Series.show(n): show < n terms or show terms that has power < n ?
