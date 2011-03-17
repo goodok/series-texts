@@ -193,8 +193,8 @@ By internal representation:
 
 Image:
 
-\![class-view-1.png](https://github.com/goodok/series-texts/raw/master/class-view-1.png)
-\![class-view-2.png](https://github.com/goodok/series-texts/raw/master/class-view-2.png)
+![class-view-1.png](https://github.com/goodok/series-texts/raw/master/class-view-1.png)
+![class-view-2.png](https://github.com/goodok/series-texts/raw/master/class-view-2.png)
 
 
     
@@ -264,8 +264,6 @@ ClassicalLaurent (infinite only negative powers)
     >>> s.positivePart().is_finite
     True
     
-    (annulus, it is the area between two concentric circles)
-    
     
 ClassicalLaurent infinite negative end positive powers:
     >>> s = (exp(x) + exp(1/x)).series(x)
@@ -275,6 +273,8 @@ ClassicalLaurent infinite negative end positive powers:
     
     >>> s*s
     SeriesError:  "Multiplication is not allowed"
+        
+    In this case may be an annulus must be token into consideration. An *annulus* it is the area between two concentric circles
 
     
 
@@ -291,41 +291,48 @@ For expansion the same too.
 
 ### Sequences
 
- - by formula (finite or infinite sequence):
-
+through formula (finite or infinite sequence):
+ 
+ 
     >>> Sequence((1, oo), k, 1/k)
     [1, 1/2, 1/3, ...]
 
 
-- by recurrent formula or with the help of .rsolve() (finite or infinite sequence)
-
+by recurrent formula or with the help of .rsolve() (finite or infinite sequence)
+ 
+ 
     >>> Sequence((1, oo), rsolve(a(0)=1, a(i+1) = a(i) + 1 ) (see rsolve interface)
     [1, 2, 3, 4, ...]
 
-- periodical (by list) (finite or infinite sequence)
-
+through periodical list (finite or infinite sequence)
+ 
+ 
     >>> Sequence((0, oo), [1, 2, 3, 4], periodical=True)
     [1, 2, 3, 4, 1, 2, 3, 4, ...]
     
-- as list (only finite sequence)
-
+through list (only finite sequence)
+ 
+ 
     >>> Sequence((1, 4), [1, 2, 3, 4])
     [1, 2, 3, 4]
     
 
 ### Series
 
-- throw sequences (or like sequences constructor)
-
+through sequences (or like sequences constructor)
+ 
+ 
     >>> s = TaylorSeries(sequence = Sequence((0, oo), [1, 0, -1, 0], periodical=True))
     1 - x**2/2 + x**4/24 + ...
 
-- from source function
+from source function
 
     >>> s = TaylorSeries(source_function=cos(x))
     1 - x**2/2 + x**4/24 + ...
 
+### Expansion
 
+The same as Series
 
 
 # Algorithms
@@ -334,12 +341,28 @@ For expansion the same too.
 
 3. Determine if LaurentSeries has principal part or not. If not then it is a Taylor. This can be used internally and must be fast.
 
-4. Isolated tasks: are the operations over the fields NAME_Series (NAME_Polynomial, NAME_Expansion).
+4. Isolated tasks are the operations over the fields NAME_Series (NAME_Polynomial, NAME_Expansion).
    
 # Relation with current situation
 
 It is necessary first
+
+- Sequences class
+
 - representation of Derivative of function at some (no zero) point (issue 1620).
+
 - representation of composition of functions while differentiation (issue 1660).
 
 - The class TaylorExpansion can be used even now (replaced little by little in core), with present algorithm of recursive expansion of complexes functions - for effective multiplication it will be easy fix (issue 1038).
+
+
+
+# Questions
+
+1. Is internal distinguish between PowerSeries (PowerExpansion) and TaylorSeries (TaylorExpantion) needs?
+
+2. What does sin(x).series(kind="taylor") == sin(x).series(kind="power") must yield?
+
+3. Series.show(n): show < n terms or show terms that has power < n ?
+
+4. Convergence analytic 
